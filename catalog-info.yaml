@@ -11,3 +11,17 @@ spec:
   lifecycle: development
   owner: team-dev
   definition: http://localhost:5036/swagger/v1/swagger.json
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-dev
+  description: The development team responsible for the Backstage API.
+spec:
+  type: team
+  profile:
+    displayName: Team Dev
+    email: team-dev@example.com
+  members:
+    - user:default/johndoe

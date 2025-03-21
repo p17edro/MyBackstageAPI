@@ -11,4 +11,4 @@ spec:
     picture: https://example.com/team-logo.png
   children: []
   members:
-    - user:default/johndoe
+    - johndoe 

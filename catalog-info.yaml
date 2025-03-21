@@ -11,18 +11,4 @@ spec:
   lifecycle: development
   owner: team-dev
   definition:
-    $text: |
-      {
-        "swagger": "2.0",
-        "info": {
-          "title": "My API",
-          "version": "1.0.0"
-        },
-        "paths": {
-          "/myendpoint": {
-            "get": {
-              "summary": "My endpoint"
-            }
-          }
-        }
-      }
+    $url: 'http://localhost:5036/swagger/v1/swagger.json'

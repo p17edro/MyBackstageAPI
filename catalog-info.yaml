@@ -9,7 +9,7 @@ metadata:
 spec:
   type: openapi
   lifecycle: development
-  owner: team-dev
+  owner: default
   definition: http://localhost:5036/swagger/v1/swagger.json
   version: 3.0.0
   dependsOn:

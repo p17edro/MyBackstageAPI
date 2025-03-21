@@ -11,6 +11,7 @@ spec:
   lifecycle: development
   owner: team-dev
   definition: http://localhost:5036/swagger/v1/swagger.json
+  openapi: 3.0.0
 
 ---
 apiVersion: backstage.io/v1alpha1

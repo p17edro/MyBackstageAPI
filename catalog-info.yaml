@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: my-backstage-api
+  description: A REST API with Swashbuckle and NSwag.
+  tags:
+    - rest
+    - csharp
+spec:
+  type: openapi
+  lifecycle: development
+  owner: team-dev
+  definition:
+    $text: http://localhost:5036/swagger/v1/swagger.json

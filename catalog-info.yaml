@@ -10,19 +10,4 @@ spec:
   type: openapi
   lifecycle: development
   owner: team-dev
-  definition:
-    raw: |
-      {
-        "swagger": "2.0",
-        "info": {
-          "title": "My API",
-          "version": "1.0.0"
-        },
-        "paths": {
-          "/myendpoint": {
-            "get": {
-              "summary": "My endpoint"
-            }
-          }
-        }
-      }
+  definition: '{"swagger": "2.0", "info": {"title": "My API", "version": "1.0.0"}, "paths": {"/myendpoint": {"get": {"summary": "My endpoint"}}}}'

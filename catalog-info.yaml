@@ -9,7 +9,7 @@ metadata:
 spec:
   type: openapi
   lifecycle: development
-  owner: team-dev
+  owner: default
   definition: |
     openapi: "3.0.4"
     info:

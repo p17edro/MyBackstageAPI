@@ -9,7 +9,7 @@ metadata:
 spec:
   type: openapi
   lifecycle: development
-  owner: default
+  owner: guest
   definition: |
     openapi: "3.0.4"
     info:

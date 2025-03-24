@@ -12,7 +12,6 @@ spec:
   owner: team-dev
   #definition: https://localhost:7293/swagger/v1/swagger.json
   definition:
-    $schema: "https://swagger.io/specification/v2/schema.json"
-    swagger: "2.0"
     url: https://localhost:7293/swagger/v1/swagger.json
+    swagger: "2.0"
   version: 3.0.0

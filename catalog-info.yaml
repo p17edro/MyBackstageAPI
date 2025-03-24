@@ -10,6 +10,9 @@ spec:
   type: openapi
   lifecycle: development
   owner: team-dev
-  #definition: http://localhost:5036/swagger/v1/swagger.json
-  definition: https://localhost:7293/swagger/v1/swagger.json
-  version: 3.1.0
+  #definition: https://localhost:7293/swagger/v1/swagger.json
+  definition:
+    $schema: https://swagger.io/specification/v2/schema.json
+    swagger: "2.0"
+    url: https://localhost:7293/swagger/v1/swagger.json
+  version: 3.0.0

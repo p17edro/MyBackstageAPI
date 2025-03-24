@@ -11,5 +11,6 @@ spec:
   lifecycle: development
   owner: team-dev
   definition: 
-    $text: https://localhost:7293/swagger/v1/swagger.json
+    #$text: https://localhost:7293/swagger/v1/swagger.json
+    $text: http://localhost:5036/swagger/v1/swagger.json
   version: 3.0.0

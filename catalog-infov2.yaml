@@ -12,4 +12,4 @@ spec:
   type: openapi
   lifecycle: development
   owner: guest
-  definition: https://github.com/p17edro/MyBackstageAPI/blob/main/swagger.json
+  definition: https://github.com/p17edro/MyBackstageAPI/blob/main/swagger.yaml

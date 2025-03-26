@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: team-a-api-v1
-  description: Version 1 of the API for Team A
+  name: my-backstage-api
+  description: Version 2 of the API
 spec:
   type: openapi
   lifecycle: development

@@ -13,4 +13,4 @@ spec:
   lifecycle: development
   owner: guest
   definition:
-    $text: ./swagger.yaml
+    $text: ./swagger.json

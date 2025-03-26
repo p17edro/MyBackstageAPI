@@ -7,7 +7,8 @@ metadata:
     - rest
     - csharp
   annotations:
-    backstage.io/swagger-ui: http://127.0.0.1:5036/swagger/v1/swagger.json  # <- Swagger UI funcionando
+    backstage.io/swagger-ui:
+      $text: ./swagger.json
 spec:
   type: openapi
   lifecycle: development

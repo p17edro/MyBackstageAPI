@@ -1,5 +1,6 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
+openapi: 3.0.0  # Explicitly specify the OpenAPI version
 metadata:
   name: my-backstage-api
   description: A REST API with Swashbuckle and NSwag.
@@ -12,5 +13,4 @@ spec:
   type: openapi
   lifecycle: development
   owner: guest
-  openapi: 3.0.0  # Explicitly specify the OpenAPI version
   definition: http://localhost:5036/swagger/v1/swagger.json  

@@ -6,12 +6,9 @@ metadata:
   tags:
     - rest
     - csharp
-  annotations:
-    backstage.io/swagger-ui:
-      $text: ./swagger.json
 spec:
   type: openapi
   lifecycle: development
   owner: guest
   definition:
-    $text: ./swagger.json
+    $text: https://127.0.0.1:7293/swagger/v1/swagger.json

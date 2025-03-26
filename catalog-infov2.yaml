@@ -6,6 +6,7 @@ metadata:
   tags:
     - rest
     - csharp
+    - openapi-3.0
   annotations:
     backstage.io/swagger-ui: http://127.0.0.1:5036/swagger/v1/swagger.json  # <- Swagger UI funcionando
 spec:

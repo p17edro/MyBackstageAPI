@@ -10,7 +10,6 @@ metadata:
     backstage.io/swagger-ui: http://127.0.0.1:5036/swagger/v1/swagger.json  # <- Swagger UI funcionando
 spec:
   type: openapi
-  openapi: 3.0.0  # Explicitly specify the OpenAPI version
   lifecycle: development
   owner: guest
   definition: http://localhost:5036/swagger/v1/swagger.json  

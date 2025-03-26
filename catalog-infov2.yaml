@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
-openapi: "3.0.0"  # Explicitly specify the OpenAPI version
 metadata:
+  openapi: "3.0.0"  # Explicitly specify the OpenAPI version
   name: my-backstage-api
   description: A REST API with Swashbuckle and NSwag.
   tags:

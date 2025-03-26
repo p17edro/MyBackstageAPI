@@ -13,5 +13,4 @@ spec:
   lifecycle: development
   owner: guest
   openapi: 3.0.0  # Explicitly specify the OpenAPI version
-  definition: 
-    $text: http://localhost:5036/swagger/v1/swagger.json  # <- Explicitly fetch as raw content
+  definition: http://localhost:5036/swagger/v1/swagger.json  

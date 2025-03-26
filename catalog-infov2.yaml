@@ -1,14 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: my-backstage-api
-  description: A REST API with Swashbuckle and NSwag.
-  tags:
-    - rest
-    - csharp
+  name: team-a-api-v1
+  description: Version 1 of the API for Team A
 spec:
   type: openapi
   lifecycle: development
   owner: guest
   definition:
-    $text: http://127.0.0.1:5036/swagger/v1/swagger.json
+    $text: ./apis/WeatherForecastAPI.json
+
+

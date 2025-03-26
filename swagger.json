@@ -78,6 +78,70 @@
       }
     },
     "/WeatherForecast/{date}": {
+      "put": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "summary": "Updates an existing WeatherForecast.",
+        "description": "Sample request:\r\n\r\n```json\r\nPUT /WeatherForecast/2022-01-01T00:00:00\r\n{\r\n    \"Date\": \"2022-01-01T00:00:00\",\r\n    \"TemperatureC\": 25,\r\n    \"TemperatureF\": 77,\r\n    \"Summary\": \"Partly Cloudy\"\r\n}\r\n```",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "description": "The date of the weather forecast to update.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The updated weather forecast data.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecast"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecast"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherForecast"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the updated weather forecast."
+          },
+          "404": {
+            "description": "If the weather forecast is not found.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "tags": [
           "WeatherForecast"
@@ -105,11 +169,39 @@
   },
   "components": {
     "schemas": {
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
       "WeatherForecast": {
         "type": "object",
         "properties": {
           "date": {
             "type": "string",
+            "description": "The date of the forecast.",
             "format": "date-time"
           },
           "temperatureC": {

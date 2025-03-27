@@ -1,228 +1,136 @@
 {
-  "openapi": "3.0.4",
-  "info": {
-    "title": "My Backstage API",
-    "description": "A REST API integrated with Backstage and NSwag.",
-    "version": "v1"
-  },
-  "paths": {
-    "/WeatherForecast": {
-      "get": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "summary": "Gets the weather forecast.",
-        "responses": {
-          "200": {
-            "description": "Returns the weather forecast",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+    "openapi": "3.0.4",
+    "info": {
+      "title": "My Backstage API",
+      "description": "A REST API integrated with Backstage and NSwag.",
+      "version": "v1"
+    },
+    "paths": {
+      "/WeatherForecast": {
+        "get": {
+          "tags": [
+            "WeatherForecast"
+          ],
+          "summary": "Gets the weather forecast.",
+          "responses": {
+            "200": {
+              "description": "Returns the weather forecast",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/WeatherForecast"
+                    }
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/WeatherForecast"
+                    }
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/WeatherForecast"
+                    }
                   }
                 }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "summary": "Adds a new WeatherForecast.",
-        "description": "Sample request:\r\n\r\n```json\r\nPOST /WeatherForecast\r\n{\r\n    \"Date\": \"2022-01-01T00:00:00\",\r\n    \"TemperatureC\": 23,\r\n    \"TemperatureF\": 74,\r\n    \"Summary\": \"Sunny\"\r\n}\r\n```",
-        "requestBody": {
-          "description": "The weather forecast to add.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WeatherForecast"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WeatherForecast"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/WeatherForecast"
               }
             }
           }
         },
-        "responses": {
-          "201": {
-            "description": "Returns the newly created weather forecast."
+        "post": {
+          "tags": [
+            "WeatherForecast"
+          ],
+          "summary": "Adds a new WeatherForecast.",
+          "description": "Sample request:\r\n\r\n```json\r\nPOST /WeatherForecast\r\n{\r\n    \"Date\": \"2022-01-01T00:00:00\",\r\n    \"TemperatureC\": 23,\r\n    \"TemperatureF\": 74,\r\n    \"Summary\": \"Sunny\"\r\n}\r\n```",
+          "requestBody": {
+            "description": "The weather forecast to add.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherForecast"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherForecast"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherForecast"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Returns the newly created weather forecast."
+            }
+          }
+        }
+      },
+      "/WeatherForecast/{date}": {
+        "delete": {
+          "tags": [
+            "WeatherForecast"
+          ],
+          "summary": "Deletes a weather forecast.",
+          "parameters": [
+            {
+              "name": "date",
+              "in": "path",
+              "description": "The date of the weather forecast to delete.",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Indicates the weather forecast was deleted"
+            }
           }
         }
       }
     },
-    "/WeatherForecast/{date}": {
-      "put": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "summary": "Updates an existing WeatherForecast.",
-        "description": "Sample request:\r\n\r\n```json\r\nPUT /WeatherForecast/2022-01-01T00:00:00\r\n{\r\n    \"Date\": \"2022-01-01T00:00:00\",\r\n    \"TemperatureC\": 25,\r\n    \"TemperatureF\": 77,\r\n    \"Summary\": \"Partly Cloudy\"\r\n}\r\n```",
-        "parameters": [
-          {
-            "name": "date",
-            "in": "path",
-            "description": "The date of the weather forecast to update.",
-            "required": true,
-            "schema": {
+    "components": {
+      "schemas": {
+        "WeatherForecast": {
+          "type": "object",
+          "properties": {
+            "date": {
               "type": "string",
               "format": "date-time"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "The updated weather forecast data.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WeatherForecast"
-              }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WeatherForecast"
-              }
+            "temperatureC": {
+              "type": "integer",
+              "description": "Temperature in Celsius.",
+              "format": "int32"
             },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/WeatherForecast"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Returns the updated weather forecast."
-          },
-          "404": {
-            "description": "If the weather forecast is not found.",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "summary": "Deletes a weather forecast.",
-        "parameters": [
-          {
-            "name": "date",
-            "in": "path",
-            "description": "The date of the weather forecast to delete.",
-            "required": true,
-            "schema": {
+            "temperatureF": {
+              "type": "integer",
+              "description": "A short weather description.",
+              "format": "int32",
+              "readOnly": true
+            },
+            "summary": {
               "type": "string",
-              "format": "date-time"
+              "description": "A short weather description.",
+              "nullable": true
             }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Indicates the weather forecast was deleted"
-          }
+          },
+          "additionalProperties": false
         }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "ProblemDetails": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "detail": {
-            "type": "string",
-            "nullable": true
-          },
-          "instance": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": { }
-      },
-      "WeatherForecast": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "description": "The date of the forecast.",
-            "format": "date-time"
-          },
-          "temperatureC": {
-            "type": "integer",
-            "description": "Temperature in Celsius.",
-            "format": "int32"
-          },
-          "temperatureF": {
-            "type": "integer",
-            "description": "A short weather description.",
-            "format": "int32",
-            "readOnly": true
-          },
-          "summary": {
-            "type": "string",
-            "description": "A short weather description.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       }
     }
   }
-}

@@ -6,6 +6,8 @@ metadata:
   tags:
     - rest
     - csharp
+  annotations:
+    backstage.io/techdocs-ref: dir:./docs
 spec:
   type: openapi
   lifecycle: development

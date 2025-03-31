@@ -2,4 +2,4 @@ site_name: My Backstage API Docs
 nav:
   - Getting Started: getting-started.md
 repo_url: https://github.com/p17edro/MyBackstageAPI
-edit_uri: edit/main/tree/main/apis/subsystem-beta/service-or-component/docs
+edit_uri: edit/main/apis/subsystem-beta/service-or-component/docs

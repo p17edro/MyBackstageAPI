@@ -11,11 +11,11 @@ spec:
   lifecycle: production
   owner: guest
   definition:
-    $text: "http://127.0.0.1:5036/swagger/v1/swagger.json"  # Definindo a versão 1 da API
+    $text: http://127.0.0.1:5036/swagger/v1/swagger.json  # Definindo a versão 1 da API
   versions:
     - version: "v1"
       lifecycle: production
-      definition: "http://127.0.0.1:5036/swagger/v1/swagger.json"  # URL para a versão 1
+      definition: 
         $text: http://127.0.0.1:5036/swagger/v1/swagger.json  # URL para a versão 1
 
     - version: "v2"

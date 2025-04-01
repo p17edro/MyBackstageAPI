@@ -7,7 +7,6 @@ metadata:
     - rest
     - csharp
 spec:
-  # Definindo a versão 1 como produção e a versão 2 como desenvolvimento
   type: openapi
   lifecycle: production  # A versão principal da API (v1) está em produção
   owner: guest
@@ -25,7 +24,6 @@ metadata:
     - rest
     - csharp
 spec:
-  # Definindo a versão 2 como em desenvolvimento
   type: openapi
   lifecycle: development  # A versão 2 da API está em desenvolvimento
   owner: guest

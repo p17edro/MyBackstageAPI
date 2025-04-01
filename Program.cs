@@ -1,89 +1,125 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Enable CORS
 builder.Services.AddCors(options =>
 {
-    //options.AddPolicy("AllowBackstage", policy =>
     options.AddPolicy("AllowAllOrigins", policy =>
     {
-        //policy.WithOrigins("http://localhost:3000") // Allow Backstage to access the API 
-        policy.AllowAnyOrigin() // Allow any origin to access the API
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 
-//builder.Services.AddHttpContextAccessor();
-
-// Add XML comments file
-var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "My Backstage API",
-        Version = "v1",
-        Description = "A REST API integrated with Backstage and NSwag."//
-    });
+builder.Services.AddAuthorization();
 
-    // Add servers dynamically
-    c.AddServer(new OpenApiServer
+// Configure API versioning
+builder.Services.AddApiVersioning(options =>
+{
+    options.ReportApiVersions = true;
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.ApiVersionReader = new UrlSegmentApiVersionReader();
+});
+
+// Configure versioned API explorer
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";  // Ensures version appears as "v1", "v2"
+    options.SubstituteApiVersionInUrl = true;
+});
+
+// Configure Swagger with versioning support
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    // Get API versioning information
+    var provider = builder.Services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+    
+    foreach (var description in provider.ApiVersionDescriptions)
     {
-        //Url = string.Empty,
+        options.SwaggerDoc(description.GroupName, new OpenApiInfo
+        {
+            Title = $"My Backstage API {description.ApiVersion}",
+            Version = description.ApiVersion.ToString()
+        });
+    }
+
+    options.OperationFilter<RemoveVersionFromParameter>();
+    options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
+
+    options.AddServer(new OpenApiServer
+    {
         Url = $"{builder.Configuration["Swagger:BaseUrl"] ?? "http://localhost:5036"}",
         Description = "Dynamic server URL"
     });
 
-    // Use a custom operation filter to dynamically set the server URL
-    //c.OperationFilter<DynamicServerOperationFilter>();
-
-    // Manually specify OpenAPI version to ensure compatibility
-    //c.UseOneOfForPolymorphism();
-    //c.SupportNonNullableReferenceTypes();
-
-    // Include XML comments
-    c.IncludeXmlComments(xmlPath);
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
 });
-
-builder.Services.AddOpenApiDocument(); // NSwag integration
-
-// Register the custom operation filter
-//builder.Services.AddSingleton<DynamicServerOperationFilter>();
 
 var app = builder.Build();
 
-// 🟢 Apply CORS policy
+// Apply CORS policy
 app.UseCors("AllowAllOrigins");
 
-// Configure the HTTP request pipeline.
+// Configure HTTP request pipeline
+app.UseRouting();
+app.UseAuthorization();
+
+// Configure Swagger
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
+    app.UseSwaggerUI(options =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Backstage API v1");
+        var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+        foreach (var description in provider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"My Backstage API {description.ApiVersion}");
+        }
     });
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
 app.MapControllers();
-
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-});
-
 app.Run();
+
+// Swagger filters to handle API versioning
+public class RemoveVersionFromParameter : IOperationFilter
+{
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    {
+        var versionParameter = operation.Parameters?.SingleOrDefault(p => p.Name == "version");
+        if (versionParameter != null)
+        {
+            operation.Parameters.Remove(versionParameter);
+        }
+    }
+}
+
+public class ReplaceVersionWithExactValueInPath : IDocumentFilter
+{
+    public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+    {
+        var paths = new OpenApiPaths();
+        foreach (var (key, value) in swaggerDoc.Paths)
+        {
+            paths.Add(key.Replace("v{version}", swaggerDoc.Info.Version), value);
+        }
+        swaggerDoc.Paths = paths;
+    }
+}

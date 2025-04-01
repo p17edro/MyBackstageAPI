@@ -6,11 +6,14 @@ metadata:
   tags:
     - rest
     - csharp
-  annotations:
-    backstage.io/techdocs-ref: dir:.
+  #annotations:
+    #backstage.io/techdocs-ref: dir:.
 spec:
   type: openapi
   lifecycle: development
   owner: guest
   definition:
     $text: http://127.0.0.1:5036/swagger/v1/swagger.json
+  documentation:
+    techdocs:
+      target: './docs'  # Caminho relativo para a pasta que contém os arquivos .md

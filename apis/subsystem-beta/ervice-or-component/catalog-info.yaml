@@ -16,4 +16,4 @@ spec:
     $text: http://127.0.0.1:5036/swagger/v1/swagger.json
   documentation:
     techdocs:
-      target: './docs'  # Caminho relativo para a pasta que contém os arquivos .md
+      target: '.'  # Caminho relativo para a pasta que contém os arquivos .md

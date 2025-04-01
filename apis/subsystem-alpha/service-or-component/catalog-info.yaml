@@ -11,8 +11,7 @@ spec:
   lifecycle: production  # A versão principal da API (v1) está em produção
   owner: guest
   definition:
-    v1: 
-      $text: http://127.0.0.1:5036/swagger/v1/swagger.json
+    $text: http://127.0.0.1:5036/swagger/v1/swagger.json
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -28,5 +27,4 @@ spec:
   lifecycle: development  # A versão 2 da API está em desenvolvimento
   owner: guest
   definition:
-    v2: 
-      $text: http://127.0.0.1:5036/swagger/v2/swagger.json
+    $text: http://127.0.0.1:5036/swagger/v2/swagger.json

@@ -50,6 +50,21 @@ public class WeatherForecastController : ControllerBase
     /// <summary>
     /// Adds a new weather forecast.
     /// </summary>
+    /// <param name="forecast">The weather forecast to add.</param>
+    /// <response code="201">Returns the newly created weather forecast.</response>
+    /// <remarks>
+    /// Sample request:
+    /// 
+    /// ```json
+    /// POST /WeatherForecast
+    /// {
+    ///     "Date": "2022-01-01T00:00:00",
+    ///     "TemperatureC": 23,
+    ///     "TemperatureF": 74,
+    ///     "Summary": "Sunny"
+    /// }
+    /// ``` 
+    /// </remarks>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public IActionResult Post([FromBody] WeatherForecast forecast)
@@ -87,13 +102,10 @@ public class WeatherForecastController : ControllerBase
         return NoContent();
     }
 
-    private WeatherForecast? FindForecastByDate(DateTime date)
+    private static WeatherForecast? FindForecastByDate(DateTime date) => new()
     {
-        return new WeatherForecast
-        {
-            Date = date,
-            TemperatureC = 20,
-            Summary = "Sunny"
-        };
-    }
+        Date = date,
+        TemperatureC = 20,
+        Summary = "Sunny"
+    };
 }

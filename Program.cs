@@ -42,15 +42,22 @@ builder.Services.AddVersionedApiExplorer(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    // Get API versioning information
-    var provider = builder.Services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
-    
+    // Dynamically add Swagger documents for each API version
+    using var serviceProvider = builder.Services.BuildServiceProvider();
+    var provider = serviceProvider.GetRequiredService<IApiVersionDescriptionProvider>();
     foreach (var description in provider.ApiVersionDescriptions)
     {
         options.SwaggerDoc(description.GroupName, new OpenApiInfo
         {
             Title = $"My Backstage API {description.ApiVersion}",
-            Version = description.ApiVersion.ToString()
+            Version = description.ApiVersion.ToString(),
+            Description = $"This is the documentation for API version {description.ApiVersion}.",
+            Contact = new OpenApiContact
+            {
+                Name = "Support Team",
+                Email = "support@example.com",
+                Url = new Uri("https://example.com/support")
+            }
         });
     }
 
@@ -84,12 +91,18 @@ app.UseAuthorization();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+
     app.UseSwaggerUI(options =>
     {
+        // Dynamically add Swagger UI endpoints for each API version
         var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
         foreach (var description in provider.ApiVersionDescriptions)
         {
-            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"My Backstage API {description.ApiVersion}");
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                $"My Backstage API {description.ApiVersion}");
+
+            // Add descriptions for each API version
+            options.DocumentTitle = $"My Backstage API {description.ApiVersion}";
         }
     });
 }

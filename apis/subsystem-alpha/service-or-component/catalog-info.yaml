@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: my-backstage-api
-  description: "API para o Backstage com versões v1 e v2"
+  description: Wildcard - A REST API with Swashbuckle and NSwag.
   tags:
     - rest
     - csharp
@@ -11,14 +11,20 @@ spec:
   lifecycle: production
   owner: guest
   definition:
-    $text: http://127.0.0.1:5036/swagger/v1/swagger.json  # Definindo a versão 1 da API
-  versions:
-    - version: "v1"
-      lifecycle: production
-      definition: 
-        $text: http://127.0.0.1:5036/swagger/v1/swagger.json  # URL para a versão 1
+    $text: http://127.0.0.1:5036/swagger/v1/swagger.json
 
-    - version: "v2"
-      lifecycle: development
-      definition:
-        $text: http://127.0.0.1:5036/swagger/v2/swagger.json  # URL para a versão 2
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: my-backstage-api-v2
+  description: Wildcard - A REST API with Swashbuckle and NSwag (v2).
+  tags:
+    - rest
+    - csharp
+spec:
+  type: openapi
+  lifecycle: development
+  owner: guest
+  definition:
+    $text: http://127.0.0.1:5036/swagger/v2/swagger.json
